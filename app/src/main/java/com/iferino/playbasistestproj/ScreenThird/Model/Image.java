@@ -1,7 +1,5 @@
 package com.iferino.playbasistestproj.ScreenThird.Model;
 
-import android.util.Log;
-
 import com.google.gson.annotations.SerializedName;
 
 public class Image {

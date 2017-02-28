@@ -20,6 +20,7 @@ public View onCreateView(LayoutInflater inflater,
 	View view = inflater.inflate(R.layout.fragment_homescreen, container, false);
 
 	TextView text = (TextView)view.findViewById(R.id.text);
+	//scroll textview
 	text.setMovementMethod(new ScrollingMovementMethod());
 
 

@@ -13,6 +13,7 @@ import java.util.Properties;
 public class Helper {
 private static final String TAG = "Helper";
 
+//get Api-key, api-secret
 public static String getConfigValue(Context context, String name) {
 	Resources resources = context.getResources();
 

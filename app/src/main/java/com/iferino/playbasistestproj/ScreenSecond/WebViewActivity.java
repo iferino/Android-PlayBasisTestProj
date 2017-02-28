@@ -7,6 +7,8 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.iferino.playbasistestproj.R;
 
@@ -16,16 +18,13 @@ public class WebViewActivity extends AppCompatActivity {
 protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.activity_webview);
-	Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-	toolbar.setTitle("Back");
-	toolbar.setNavigationIcon(R.drawable.back);
-	toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-		@Override
-		public void onClick(View v) {
+
+	LinearLayout backIcon = (LinearLayout)findViewById(R.id.back_image);
+	backIcon.setOnClickListener(new View.OnClickListener() {
+		@Override public void onClick(View v) {
 			finish();
 		}
 	});
-
 
 	WebView webView = (WebView) findViewById(R.id.webView);
 

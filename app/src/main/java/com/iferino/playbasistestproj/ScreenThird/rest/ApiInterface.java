@@ -12,9 +12,9 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
 
-@GET("resources/image")
+@GET("resources/image?direction=asc")
 Call<ImagesResponse> getAllImages (@Header("Authorization") String authorization);
 
-@GET("resources/image")
+@GET("resources/image?direction=asc")
 Call<ImagesResponse> getNextPage(@Header("Authorization") String authorization, @Query("next_cursor") String nextPage);
 }

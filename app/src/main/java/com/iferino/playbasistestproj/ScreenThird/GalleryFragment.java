@@ -1,6 +1,5 @@
 package com.iferino.playbasistestproj.ScreenThird;
 
-import android.media.ImageReader;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +19,8 @@ import com.iferino.playbasistestproj.ScreenThird.rest.ApiClient;
 import com.iferino.playbasistestproj.ScreenThird.rest.ApiInterface;
 import com.iferino.playbasistestproj.ScreenThird.rest.Helper;
 
+
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -27,6 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class GalleryFragment extends Fragment {
+private static final String TAG = "GalleryFragment";
 private ImagesResponse result_body;
 private ImageAdapter imageAdapter;
 @Override
@@ -35,6 +37,8 @@ public View onCreateView(LayoutInflater inflater,
                          @Nullable Bundle savedInstanceState) {
 
 	View view = inflater.inflate(R.layout.fragment_gallery, container, false);
+
+	Log.i(TAG,"onCreateView");
 
 	final RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
 	final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipeRefreshLayout);
@@ -53,24 +57,26 @@ public View onCreateView(LayoutInflater inflater,
 	call.enqueue(new Callback<ImagesResponse>() {
 		@Override public void onResponse(Call<ImagesResponse> call, final Response<ImagesResponse> response) {
 			if (response.isSuccessful()) {
+				Log.i(TAG,"onResponse");
 				result_body = response.body();
 				List<Image> images = result_body.getResourse();
-				Log.i("TAG", "Number of images: " + images.size());
+				Collections.reverse(images);
 				imageAdapter = new ImageAdapter(images,getContext());
 				recyclerView.setAdapter(imageAdapter);
+			}
+			else {
+				Log.i(TAG,"not Successful");
 			}
 		}
 
 		@Override public void onFailure(Call<ImagesResponse> call, Throwable t) {
-			Log.e("TAG",t.toString());
+			Log.e(TAG,t.toString());
 		}
 	});
 
 	swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 		@Override public void onRefresh() {
-			Log.i("TAG", "refresh");
 			if(result_body.getNextPage()!=null){
-				Log.i("TAG", "nextpage");
 				//call next page
 				Call<ImagesResponse> call = apiService.getNextPage(basicAuth,result_body.getNextPage());
 				call.enqueue(new Callback<ImagesResponse>() {
@@ -78,9 +84,9 @@ public View onCreateView(LayoutInflater inflater,
 					                                 Response<ImagesResponse> response)
 					{
 						if (response.isSuccessful()){
-							Log.i("TAG","response of next page");
 							result_body = response.body();
 							List<Image> images = result_body.getResourse();
+							Collections.reverse(images);
 							imageAdapter.addAll(images);
 							swipeRefreshLayout.setRefreshing(false);
 						}
@@ -88,7 +94,7 @@ public View onCreateView(LayoutInflater inflater,
 					}
 
 					@Override public void onFailure(Call<ImagesResponse> call, Throwable t) {
-						Log.e("TAG",t.toString());
+						Log.e(TAG,t.toString());
 					}
 				});
 
