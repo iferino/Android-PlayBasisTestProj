@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.iferino.playbasistestproj.R;
+import com.iferino.playbasistestproj.ScreenThird.GalleryFragment;
 import com.iferino.playbasistestproj.ScreenThird.Model.Image;
 import com.iferino.playbasistestproj.ScreenThird.PhotoActivity;
 import com.squareup.picasso.Picasso;
@@ -17,8 +18,9 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
 
-private static List<Image> images;
-private static Context     context;
+private static List<Image>                             images;
+private static Context                                 context;
+private static GalleryFragment.OnImageSelectedListener callback;
 
 
 public static class ImageViewHolder extends RecyclerView.ViewHolder {
@@ -26,21 +28,25 @@ public static class ImageViewHolder extends RecyclerView.ViewHolder {
 
 	public ImageViewHolder(View v) {
 		super(v);
-		img_view = (ImageView)v.findViewById(R.id.img_view);
+		img_view = (ImageView) v.findViewById(R.id.img_view);
 		img_view.setOnClickListener(new View.OnClickListener() {
 			@Override public void onClick(View v) {
-				Intent intent = new Intent(context,PhotoActivity.class);
+				callback.onImageSelected(images.get(getAdapterPosition()).getUrl(),
+				                         images.get(getAdapterPosition()).getPublicId());
+
+				/*Intent intent = new Intent(context,PhotoActivity.class);
 				intent.putExtra("url", images.get(getAdapterPosition()).getUrl());
 				intent.putExtra("text", images.get(getAdapterPosition()).getPublicId());
-				context.startActivity(intent);
+				context.startActivity(intent);*/
 			}
 		});
 	}
 }
 
-public ImageAdapter(List<Image> images, Context context) {
+public ImageAdapter(List<Image> images, Context context, GalleryFragment.OnImageSelectedListener callback) {
 	this.images = images;
 	this.context = context;
+	this.callback = callback;
 	//pre-load
 	for(Image img: images){
 		Picasso.with(context).load(img.getUrl()).fetch();

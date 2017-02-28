@@ -1,5 +1,7 @@
 package com.iferino.playbasistestproj.ScreenThird;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -31,6 +33,25 @@ public class GalleryFragment extends Fragment {
 private static final String TAG = "GalleryFragment";
 private ImagesResponse result_body;
 private ImageAdapter imageAdapter;
+
+OnImageSelectedListener callBack;
+
+public interface OnImageSelectedListener{
+	public void onImageSelected (String url, String text);
+}
+
+@Override
+public void onAttach(Context context){
+	super.onAttach(context);
+
+	try {
+		callBack = (OnImageSelectedListener) context;
+	}catch (ClassCastException e){
+		throw new ClassCastException(context.toString()+"must implement onImageSelectedListener");
+	}
+
+}
+
 @Override
 public View onCreateView(LayoutInflater inflater,
                          @Nullable ViewGroup container,
@@ -61,7 +82,7 @@ public View onCreateView(LayoutInflater inflater,
 				result_body = response.body();
 				List<Image> images = result_body.getResourse();
 				Collections.reverse(images);
-				imageAdapter = new ImageAdapter(images,getContext());
+				imageAdapter = new ImageAdapter(images,getContext(),callBack);
 				recyclerView.setAdapter(imageAdapter);
 			}
 			else {
