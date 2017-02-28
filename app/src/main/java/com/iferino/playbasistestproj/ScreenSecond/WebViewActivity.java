@@ -10,12 +10,12 @@ import android.webkit.WebViewClient;
 
 import com.iferino.playbasistestproj.R;
 
-public class WebViewFragment extends AppCompatActivity {
+public class WebViewActivity extends AppCompatActivity {
 
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.fragment_webview);
+	setContentView(R.layout.activity_webview);
 	Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
 	toolbar.setTitle("Back");
 	toolbar.setNavigationIcon(R.drawable.back);

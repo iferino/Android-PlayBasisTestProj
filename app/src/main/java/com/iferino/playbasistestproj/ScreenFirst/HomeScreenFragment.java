@@ -1,4 +1,4 @@
-package com.iferino.playbasistestproj;
+package com.iferino.playbasistestproj.ScreenFirst;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

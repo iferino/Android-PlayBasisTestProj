@@ -21,7 +21,7 @@ public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle save
 	TableRow row2 = (TableRow)view.findViewById(R.id.row2);
 	TableRow row3 = (TableRow)view.findViewById(R.id.row3);
 
-	final Intent intent = new Intent(getActivity(), WebViewFragment.class);
+	final Intent intent = new Intent(getActivity(), WebViewActivity.class);
 	row1.setOnTouchListener(new OnSwipeTouchListener(getActivity()){
 		@Override
 		public void onSwipeLeft() {

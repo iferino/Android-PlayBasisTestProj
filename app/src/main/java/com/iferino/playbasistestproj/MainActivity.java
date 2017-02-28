@@ -17,6 +17,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.iferino.playbasistestproj.ScreenFirst.HomeScreenFragment;
 import com.iferino.playbasistestproj.ScreenSecond.UrlListFragment;
 import com.iferino.playbasistestproj.ScreenThird.GalleryFragment;
 
