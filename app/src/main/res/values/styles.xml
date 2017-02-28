@@ -1,0 +1,26 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="NavigationDrawerStyle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:listDivider">@drawable/line_divider</item>
+    </style>
+    <style name="TextTableStyle">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="WebViewToolBarStyle">
+        <item name="android:textColorPrimary">@color/toolbar_bg</item>
+        <item name="android:textColorSecondary">@color/toolbar_bg</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:tint">@color/toolbar_bg</item>
+        <item name="android:textSize">22dp</item>
+
+    </style>
+
+
+</resources>
