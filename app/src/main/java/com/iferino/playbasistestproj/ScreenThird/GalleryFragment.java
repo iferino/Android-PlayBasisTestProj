@@ -1,6 +1,5 @@
 package com.iferino.playbasistestproj.ScreenThird;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -59,8 +58,6 @@ public View onCreateView(LayoutInflater inflater,
 
 	View view = inflater.inflate(R.layout.fragment_gallery, container, false);
 
-	Log.i(TAG,"onCreateView");
-
 	final RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recycler_view);
 	final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipeRefreshLayout);
 
@@ -78,7 +75,6 @@ public View onCreateView(LayoutInflater inflater,
 	call.enqueue(new Callback<ImagesResponse>() {
 		@Override public void onResponse(Call<ImagesResponse> call, final Response<ImagesResponse> response) {
 			if (response.isSuccessful()) {
-				Log.i(TAG,"onResponse");
 				result_body = response.body();
 				List<Image> images = result_body.getResourse();
 				Collections.reverse(images);

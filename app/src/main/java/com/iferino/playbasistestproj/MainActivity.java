@@ -7,11 +7,11 @@ import android.os.Build;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
@@ -21,11 +21,13 @@ import android.widget.TextView;
 
 import com.iferino.playbasistestproj.ScreenFirst.HomeScreenFragment;
 import com.iferino.playbasistestproj.ScreenSecond.UrlListFragment;
+import com.iferino.playbasistestproj.ScreenSecond.WebViewFragment;
 import com.iferino.playbasistestproj.ScreenThird.GalleryFragment;
 import com.iferino.playbasistestproj.ScreenThird.PhotoFragment;
 
 
-public class MainActivity extends AppCompatActivity implements GalleryFragment.OnImageSelectedListener{
+public class MainActivity extends AppCompatActivity implements UrlListFragment.OnUrlSelectedListener, GalleryFragment
+		                                                               .OnImageSelectedListener{
 
 private DrawerLayout                      drawerLayout;
 private ActionBarDrawerToggle drawerToggle;
@@ -118,6 +120,18 @@ protected void onCreate(Bundle savedInstanceState) {
 	});
 }
 
+@Override public void onUrlSelected(String url) {
+	WebViewFragment webFragment = new WebViewFragment();
+	Bundle args = new Bundle();
+	args.putString("url",url);
+	webFragment.setArguments(args);
+	setToolbarBack();
+	FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+	transaction.replace(R.id.container,webFragment);
+	transaction.addToBackStack(null);
+	transaction.commit();
+}
+
 //select image in gallery-call fragment
 @Override public void onImageSelected(String url, String text) {
 	PhotoFragment photoFragment = new PhotoFragment();
@@ -126,13 +140,13 @@ protected void onCreate(Bundle savedInstanceState) {
 	args.putString("text", text);
 	photoFragment.setArguments(args);
 
-	setToolbarImage();
+	setToolbarTitleBack();
 	FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 	transaction.replace(R.id.container,photoFragment);
 	transaction.addToBackStack(null);
 	transaction.commit();
 }
-void setToolbarImage(){
+void setToolbarBack(){
 	//disable drawer
 	drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 	drawerToggle.setDrawerIndicatorEnabled(false);
@@ -144,10 +158,12 @@ void setToolbarImage(){
 			getSupportFragmentManager().popBackStack();
 		}
 	});
+	toolbar.setBackgroundColor(Color.WHITE);
+}
+void setToolbarTitleBack(){
 	title.setText("Photo");
 	title.setTextColor(Color.BLACK);
-	toolbar.setBackgroundColor(Color.WHITE);
-
+	setToolbarBack();
 }
 void setToolbarDrawer(){
 	//enable drawer
@@ -156,7 +172,7 @@ void setToolbarDrawer(){
 	//config toolbar
 	backIcon.setVisibility(View.INVISIBLE);
 	title.setTextColor(Color.WHITE);
-	toolbar.setBackgroundColor(R.color.toolbar_bg);
+	toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_bg));
 	title.setText(R.string.toolbar_menu2);
 }
 

@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import com.iferino.playbasistestproj.R;
 import com.iferino.playbasistestproj.ScreenThird.GalleryFragment;
 import com.iferino.playbasistestproj.ScreenThird.Model.Image;
-import com.iferino.playbasistestproj.ScreenThird.PhotoActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -33,11 +32,6 @@ public static class ImageViewHolder extends RecyclerView.ViewHolder {
 			@Override public void onClick(View v) {
 				callback.onImageSelected(images.get(getAdapterPosition()).getUrl(),
 				                         images.get(getAdapterPosition()).getPublicId());
-
-				/*Intent intent = new Intent(context,PhotoActivity.class);
-				intent.putExtra("url", images.get(getAdapterPosition()).getUrl());
-				intent.putExtra("text", images.get(getAdapterPosition()).getPublicId());
-				context.startActivity(intent);*/
 			}
 		});
 	}
@@ -51,11 +45,6 @@ public ImageAdapter(List<Image> images, Context context, GalleryFragment.OnImage
 	for(Image img: images){
 		Picasso.with(context).load(img.getUrl()).fetch();
 	}
-}
-
-public void clear(){
-	this.images.clear();
-	notifyDataSetChanged();
 }
 
 public void addAll(List<Image> images){
